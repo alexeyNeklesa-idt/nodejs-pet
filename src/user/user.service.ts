@@ -55,4 +55,10 @@ export class UserService {
 
     return updatedUser;
   }
+
+  delete(id: number) {
+    this.getById(id);
+
+    this.users = this.users.filter((user) => user.id !== id);
+  }
 }
