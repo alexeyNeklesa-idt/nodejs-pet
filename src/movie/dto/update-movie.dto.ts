@@ -1,11 +1,10 @@
-import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsDate, IsOptional, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export class CreateMovieDto {
-	@IsNotEmpty()
+export class UpdateMovieDto {
 	@IsString()
+	@IsOptional()
 	title: string;
-	@IsNotEmpty()
 	@Transform(({ value }) => new Date(value))
 	@IsDate()
 	@IsOptional()

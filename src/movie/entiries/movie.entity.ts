@@ -11,6 +11,8 @@ export class MovieEntity {
 	id: number;
 	@Column()
 	title: string;
+	@Column({ default: '' })
+	description: string;
 	@Column()
 	releaseDate: Date;
 	@CreateDateColumn()
