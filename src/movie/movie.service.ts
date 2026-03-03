@@ -1,13 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
+import { MovieEntity } from './entiries/movie.entity';
+import { Repository } from 'typeorm/repository/Repository.js';
+import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
+import { CreateMovieDto } from './dto/create-movie.dto';
 
 @Injectable()
 export class MovieService {
-	constructor(private readonly userService: UserService) {}
+	constructor(
+		@InjectRepository(MovieEntity)
+		private readonly movieRepository: Repository<MovieEntity>,
+	) {}
 
-	getAll() {
-		const users = this.userService.getAll();
-		console.log(users);
-		return users;
+	async getAll(): Promise<MovieEntity[]> {
+		return await this.movieRepository.find();
+	}
+
+	async create(dto: CreateMovieDto): Promise<MovieEntity> {
+		const newMovie = this.movieRepository.create(dto);
+		return await this.movieRepository.save(newMovie);
 	}
 }

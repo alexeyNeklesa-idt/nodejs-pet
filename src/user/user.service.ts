@@ -4,61 +4,61 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
-  private users = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: '',
-    },
-    {
-      id: 2,
-      name: 'Alex Smith',
-      email: '',
-    },
-  ];
+	private users = [
+		{
+			id: 1,
+			name: 'John Doe',
+			email: '',
+		},
+		{
+			id: 2,
+			name: 'Alex Smith',
+			email: '',
+		},
+	];
 
-  getAll() {
-    return this.users;
-  }
+	getAll() {
+		return this.users;
+	}
 
-  getById(id: number) {
-    const user = this.users.find((user) => user.id === id);
+	getById(id: number) {
+		const user = this.users.find((user) => user.id === id);
 
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
-    }
-    return user;
-  }
+		if (!user) {
+			throw new NotFoundException(`User with id ${id} not found`);
+		}
+		return user;
+	}
 
-  create(user: CreateUserDto) {
-    const newUser = {
-      id: this.users.length + 1,
-      ...user,
-    };
+	create(user: CreateUserDto) {
+		const newUser = {
+			id: this.users.length + 1,
+			...user,
+		};
 
-    this.users.push(newUser);
+		this.users.push(newUser);
 
-    return newUser;
-  }
+		return newUser;
+	}
 
-  update(id: number, dto: UpdateUserDto) {
-    const user = this.getById(id);
+	update(id: number, dto: UpdateUserDto) {
+		const user = this.getById(id);
 
-    const updatedUser = {
-      ...user,
-      ...dto,
-    };
+		const updatedUser = {
+			...user,
+			...dto,
+		};
 
-    this.users = this.users.map((user) =>
-      user.id === id ? updatedUser : user,
-    );
+		this.users = this.users.map((user) =>
+			user.id === id ? updatedUser : user,
+		);
 
-    return updatedUser;
-  }
+		return updatedUser;
+	}
 
-  delete(id: number) {
-    this.getById(id);
+	delete(id: number) {
+		this.getById(id);
 
-    this.users = this.users.filter((user) => user.id !== id);
-  }
+		this.users = this.users.filter((user) => user.id !== id);
+	}
 }
