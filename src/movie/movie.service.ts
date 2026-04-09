@@ -12,13 +12,13 @@ export class MovieService {
 		private readonly movieRepository: Repository<MovieEntity>,
 	) {}
 
-	// async getAll(): Promise<MovieEntity[]> {
-	// 	return await this.movieRepository.find({
-	// 		order: {
-	// 			createdAt: 'DESC',
-	// 		},
-	// 	});
-	// }
+	async getAll(): Promise<MovieEntity[]> {
+		return await this.movieRepository.find({
+			order: {
+				createdAt: 'DESC',
+			},
+		});
+	}
 
 	async getById(id: number): Promise<MovieEntity> {
 		const movie = await this.movieRepository.findOneBy({ id });
