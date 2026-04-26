@@ -1,24 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { MovieModule } from './movie/movie.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { getTypeOrmConfig } from './config/typeorm.config';
+import { UsersModule } from './users/user.module';
 
 @Module({
 	imports: [
-		ConfigModule.forRoot({
-			isGlobal: true,
-		}),
-		TypeOrmModule.forRootAsync({
-			imports: [ConfigModule],
-			inject: [ConfigService],
-			useFactory: getTypeOrmConfig,
-		}),
-		UserModule,
-		MovieModule,
+		MongooseModule.forRoot('mongodb://localhost:27017/petdb'),
+		UsersModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
